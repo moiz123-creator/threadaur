@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THREAD AURA</title>
+    <link rel="stylesheet" href="../Css/signup.css">
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <h2>Sign Up</h2>
+            <a style="text-decoration: none;" class="close-btn" onclick="closeForm()" href="Home.html">×</a>
+        </div>
+        <form action="../SignupDatabase/submit.php" id="signup-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter Your Username" required>
+                <div class="error" id="username-error">Username is required.</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
+                <div class="error" id="email-error">Please enter a valid email address.</div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter Your Password" required>
+                <div class="error" id="password-error">Password must be at least 8 characters long.</div>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Your Password" required>
+                <div class="error" id="confirm-password-error">Passwords do not match.</div>
+            </div>
+            <div class="show-password">
+                <input type="checkbox" id="show-password">
+                <label for="show-password">Show Password</label>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="signup-footer">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+    </div>
+    
+    <script>
+        const signupForm = document.getElementById('signup-form');
+        const showPasswordCheckbox = document.getElementById('show-password');
+        const passwordField = document.getElementById('password');
+        const confirmPasswordField = document.getElementById('confirm-password');
+        const emailField = document.getElementById('email');
+        const usernameField = document.getElementById('username');
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+        const confirmPasswordError = document.getElementById('confirm-password-error');
+        const usernameError = document.getElementById('username-error');
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            let valid = true;
+
+            // Validate username
+            const usernameValue = usernameField.value.trim();
+            if (usernameValue === '') {
+                usernameError.style.display = 'block';
+                valid = false;
+            } else {
+                usernameError.style.display = 'none';
+            }
+
+            // Validate email
+            const emailValue = emailField.value.trim();
+            if (!validateEmail(emailValue)) {
+                emailError.style.display = 'block';
+                valid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            // Validate password
+            const passwordValue = passwordField.value.trim();
+            if (passwordValue.length < 8) {
+                passwordError.style.display = 'block';
+                valid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            // Validate confirm password
+            const confirmPasswordValue = confirmPasswordField.value.trim();
+            if (passwordValue !== confirmPasswordValue) {
+                confirmPasswordError.style.display = 'block';
+                valid = false;
+            } else {
+                confirmPasswordError.style.display = 'none';
+            }
+
+            if (valid) {
+                console.log(`Username: ${usernameValue}`);
+                console.log(`Email: ${emailValue}`);
+                console.log(`Password: ${passwordValue}`);
+                // Perform the signup action, like sending the data to the server
+            }
+        });
+        
+        showPasswordCheckbox.addEventListener('change', () => {
+            if (showPasswordCheckbox.checked) {
+                passwordField.type = 'text';
+                confirmPasswordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+                confirmPasswordField.type = 'password';
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function closeForm() {
+            // Redirect to the home page
+            window.location.href = 'chat.html';
+        }
+    </script>
+</body>
+</html>

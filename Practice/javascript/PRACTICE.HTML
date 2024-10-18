@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="number" id="v1">
+
+    <h1 id="head">this is heading</h1>
+
+    <button onclick="changeMoiz()" >align center</button>
+    <button onclick="red('green')">red</button>
+    <button onclick="sum()">+</button>
+    <button onclick="eq()">=</button>
+
+    <script>
+        function changeMoiz(){
+            document.getElementById('head').style.textAlign = 'center';
+        }
+        function red(color){
+            document.getElementById('head').style.color = color;
+        }
+
+        function sum(){
+            let x = document.getElementById('v1').value;
+            document.getElementById('head').innerText = x;
+        }
+
+        function eq(){
+            let x = document.getElementById('v1').value;
+            let y = document.getElementById('head').innerText;
+            let z = parseInt(x)+parseInt(y);
+            document.getElementById('head').innerText = z;}
+            
+    </script>
+</body>
+</html>

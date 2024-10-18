@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .signup-container {
+            position: relative;
+            width: 400px;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            color: #e74c3c;
+        }
+        
+        
+        .signup-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .signup-header h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"], 
+        .form-group input[type="password"] {
+            width: 90%;
+            height: 25px;
+            padding: 12px;
+            font-size: 16px;
+            line-height: 1.5;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-left: -5px;
+        }
+
+        .show-password {
+            display: flex;
+            align-items: center;
+            margin-top: -10px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        .show-password input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        button[type="submit"] {
+            width: 100%;
+            height: 45px;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+        
+        .signup-footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .signup-footer p {
+            margin: 10px 0;
+        }
+
+        .signup-footer a {
+            text-decoration: none;
+            color: #337ab7;
+            font-size: 14px;
+        }
+        
+        .signup-footer a:hover {
+            color: #23527c;
+        }
+        
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <a style="text-decoration: none;" class="close-btn" onclick="closeForm()" href="Home.html">×</a>
+            <h2>Update Student</h2>
+        </div>
+        <form action="update.php" method="post">
+           <div class="form-group">
+            <label for="">Enter Your Id</label>
+            <input type="text" name="id" placeholder="Enter Your ID">
+            
+           </div>
+    
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter Your Username" required>
+                <div class="error" id="username-error">Username is required.</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
+                <div class="error" id="email-error">Please enter a valid email address.</div>
+            </div>
+            
+            <button type="submit">Update</button>
+        </form>
+    </div>
+    
+    <script>
+        const signupForm = document.getElementById('signup-form');
+        const showPasswordCheckbox = document.getElementById('show-password');
+        const passwordField = document.getElementById('password');
+        const confirmPasswordField = document.getElementById('confirm-password');
+        const emailField = document.getElementById('email');
+        const usernameField = document.getElementById('username');
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+        const confirmPasswordError = document.getElementById('confirm-password-error');
+        const usernameError = document.getElementById('username-error');
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            let valid = true;
+
+            // Validate username
+            const usernameValue = usernameField.value.trim();
+            if (usernameValue === '') {
+                usernameError.style.display = 'block';
+                valid = false;
+            } else {
+                usernameError.style.display = 'none';
+            }
+
+            // Validate email
+            const emailValue = emailField.value.trim();
+            if (!validateEmail(emailValue)) {
+                emailError.style.display = 'block';
+                valid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            // Validate password
+            const passwordValue = passwordField.value.trim();
+            if (passwordValue.length < 8) {
+                passwordError.style.display = 'block';
+                valid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            // Validate confirm password
+            const confirmPasswordValue = confirmPasswordField.value.trim();
+            if (passwordValue !== confirmPasswordValue) {
+                confirmPasswordError.style.display = 'block';
+                valid = false;
+            } else {
+                confirmPasswordError.style.display = 'none';
+            }
+
+            if (valid) {
+                console.log(`Username: ${usernameValue}`);
+                console.log(`Email: ${emailValue}`);
+                console.log(`Password: ${passwordValue}`);
+                // Perform the signup action, like sending the data to the server
+            }
+        });
+        
+        showPasswordCheckbox.addEventListener('change', () => {
+            if (showPasswordCheckbox.checked) {
+                passwordField.type = 'text';
+                confirmPasswordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+                confirmPasswordField.type = 'password';
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function closeForm() {
+            // Redirect to the home page
+            window.location.href = 'chat.html';
+        }
+    </script>
+</body>
+</html>

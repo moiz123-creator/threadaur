@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url(../images/cart-6164637_1280.jpg);
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+    </style>
+</head>
+<body>
+  <h1  id="h1">This is Heading</h1>
+  <button onclick="hide()">Hide</button>
+  <button onclick="show()">show</button>
+</body>
+
+<script>
+    function hide(){
+        document.getElementById('h1').style.display= "none";
+    }
+    function show(){
+        document.getElementById('h1').style.display= "";
+    }
+</script>
+
+</html>
